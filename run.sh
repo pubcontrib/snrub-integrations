@@ -31,7 +31,6 @@ done
 # Run the test suite now that integration tests are merged in
 cd "$repo_path"
 make > /dev/null 2>&1
-#output=`make check 2>&1`
 make check 2>&1
 status=$?
 
