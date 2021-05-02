@@ -24,3 +24,6 @@ Run integration test suite against a branch of code:
 ```shell
 sh run.sh ~/Repos/snrub
 ```
+
+## License
+This project uses the unlicense license. See `LICENSE` file for more details.
