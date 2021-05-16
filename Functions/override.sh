@@ -33,8 +33,11 @@ fail()
 
 conclude()
 {
+    end_seconds=`current_seconds`
+    total_seconds=$((end_seconds-start_seconds))
+
     clear
-    printf '%d tests run.' $count
+    printf '%d tests run. Took %d seconds.' $count $total_seconds
     count=0
 }
 
@@ -49,3 +52,13 @@ progress()
     clear
     printf "[%d in %s]" $count "$hint"
 }
+
+current_seconds()
+{
+    date +%s
+}
+
+if [ -z $start_seconds ]
+then
+    start_seconds=`current_seconds`
+fi
