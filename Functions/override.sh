@@ -33,8 +33,8 @@ fail()
 
 conclude()
 {
-    printf '\n'
-    printf '%d tests run.\n' $count
+    clear
+    printf '%d tests run.' $count
     count=0
 }
 
