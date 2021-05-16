@@ -1,21 +1,33 @@
 pass()
 {
     run_test "$1" "$2" 0
-    run_batch_test "$1"
-    run_file_test "$1" "$2" 0
-    run_interactive_test "$1" "$2" 0
-    run_memory_test "$1"
+    progress
 
+    run_batch_test "$1"
+    progress
+
+    run_file_test "$1" "$2" 0
+    progress
+
+    run_interactive_test "$1" "$2" 0
+    progress
+
+    run_memory_test "$1"
     progress
 }
 
 fail()
 {
     run_test "$1" "$2" 1
-    run_file_test "$1" "$2" 1
-    run_interactive_test "$1" "$2" 1
-    run_memory_test "$1"
+    progress
 
+    run_file_test "$1" "$2" 1
+    progress
+
+    run_interactive_test "$1" "$2" 1
+    progress
+
+    run_memory_test "$1"
     progress
 }
 
