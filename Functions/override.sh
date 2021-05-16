@@ -1,28 +1,43 @@
 pass()
 {
     run_test "$1" "$2" 0
-    run_batch_test "$1"
-    run_file_test "$1" "$2" 0
-    run_interactive_test "$1" "$2" 0
-    run_memory_test "$1"
+    progress
 
+    run_batch_test "$1"
+    progress
+
+    run_file_test "$1" "$2" 0
+    progress
+
+    run_interactive_test "$1" "$2" 0
+    progress
+
+    run_memory_test "$1"
     progress
 }
 
 fail()
 {
     run_test "$1" "$2" 1
-    run_file_test "$1" "$2" 1
-    run_interactive_test "$1" "$2" 1
-    run_memory_test "$1"
+    progress
 
+    run_file_test "$1" "$2" 1
+    progress
+
+    run_interactive_test "$1" "$2" 1
+    progress
+
+    run_memory_test "$1"
     progress
 }
 
 conclude()
 {
-    printf '\n'
-    printf '%d tests run.\n' $count
+    end_seconds=`current_seconds`
+    total_seconds=$((end_seconds-start_seconds))
+
+    clear
+    printf '%d tests run. Took %d seconds.' $count $total_seconds
     count=0
 }
 
@@ -35,5 +50,15 @@ clear()
 progress()
 {
     clear
-    printf "[%d in %s]" $count "$hint"
+    printf "...%s@%d" "$hint" $count
 }
+
+current_seconds()
+{
+    date +%s
+}
+
+if [ -z $start_seconds ]
+then
+    start_seconds=`current_seconds`
+fi
