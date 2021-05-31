@@ -28,15 +28,31 @@ do
     cat "$injection" >> "$destination_file"
 done
 
+# Trap early program exits to assure cleanup happens
+clean()
+{
+    # Reset the state of the source repo
+    make clean > /dev/null 2>&1
+    git checkout HEAD -- "$destination_file" > /dev/null 2>&1
+}
+
+fail_early()
+{
+    # Assure clean is run before exiting
+    clean
+    exit 1
+}
+
+trap fail_early INT QUIT ABRT
+
 # Run the test suite now that integration tests are merged in
 cd "$repo_path"
 make > /dev/null 2>&1
 make check 2>&1
 status=$?
 
-# Reset the state of the source repo
-make clean > /dev/null 2>&1
-git checkout HEAD -- "$destination_file" > /dev/null 2>&1
+# Run cleanup by hand if the tests didn't fail early
+clean
 
 # Print the results
 printf "%s\n" "$output"
