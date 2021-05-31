@@ -17,15 +17,15 @@ fi
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
 
-# Copy integration test functions to the test project
-cd "$integration_path/Functions"
+# Append injected scripts to the test project
+cd "$integration_path/injections"
 destination_file="$repo_path/test/assert.sh"
-functions=`ls`
+injections=`ls`
 
-for function in $functions
+for injection in $injections
 do
-    name=`basename $function`
-    cat "$function" >> "$destination_file"
+    name=`basename $injection`
+    cat "$injection" >> "$destination_file"
 done
 
 # Run the test suite now that integration tests are merged in
