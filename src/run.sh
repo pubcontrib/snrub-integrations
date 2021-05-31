@@ -36,7 +36,7 @@ status=$?
 
 # Reset the state of the source repo
 make clean > /dev/null 2>&1
-git reset --hard HEAD > /dev/null 2>&1
+git checkout HEAD -- "$destination_file" > /dev/null 2>&1
 
 # Print the results
 printf "%s\n" "$output"
