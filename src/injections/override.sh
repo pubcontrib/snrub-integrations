@@ -50,7 +50,7 @@ clear()
 progress()
 {
     clear
-    printf "...%s@%d" "$hint" $count
+    printf '...%s@%d' "$hint" $count
 }
 
 current_seconds()
