@@ -4,13 +4,13 @@ repo_path=$1
 
 if [ ! -d "$integration_path" ]
 then
-    printf "[ERROR] No integration path found."
+    printf '[ERROR] No integration path found.\n'
     exit 1
 fi
 
 if [ ! -d "$repo_path" ]
 then
-    printf "[ERROR] No repo path found.\n"
+    printf '[ERROR] No repo path found.\n'
     exit 1
 fi
 
@@ -53,7 +53,4 @@ status=$?
 
 # Run cleanup by hand if the tests didn't fail early
 clean
-
-# Print the results
-printf "%s\n" "$output"
 exit $status

@@ -7,10 +7,10 @@ run_memory_test()
 
     if [ $code -eq 64 ]
     then
-        printf "[ERROR] Test case failed memory leak test.\n" 1>&2
-        printf "Hint: %s\n" "$hint" 1>&2
-        printf "Source: %s\n" "$text" 1>&2
-        printf "Log: %s\n" "$output" 1>&2
+        printf '[ERROR] Test case failed memory leak test.\n' 1>&2
+        printf 'Hint: %s\n' "$hint" 1>&2
+        printf 'Source: %s\n' "$text" 1>&2
+        printf 'Log: %s\n' "$output" 1>&2
         exit 1
     fi
 
