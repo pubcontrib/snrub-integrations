@@ -37,7 +37,7 @@ conclude()
     total_seconds=$((end_seconds-start_seconds))
 
     clear
-    printf '%d tests run. Took %d seconds.' $count $total_seconds
+    printf '%d tests run. Took %d seconds.\n' $count $total_seconds
     count=0
 }
 

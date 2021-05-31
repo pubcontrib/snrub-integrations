@@ -53,7 +53,4 @@ status=$?
 
 # Run cleanup by hand if the tests didn't fail early
 clean
-
-# Print the results
-printf "%s\n" "$output"
 exit $status
