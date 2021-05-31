@@ -25,7 +25,7 @@ injections=`ls`
 for injection in $injections
 do
     name=`basename $injection`
-    cat "$function" >> "$destination_file"
+    cat "$injection" >> "$destination_file"
 done
 
 # Run the test suite now that integration tests are merged in
