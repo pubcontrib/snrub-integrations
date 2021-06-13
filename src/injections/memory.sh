@@ -5,7 +5,7 @@ run_memory_test()
     output=`valgrind --leak-check=full --error-exitcode=64 $PROGRAM -t "$text" 2>&1`
     code=$?
 
-    if [ $code -eq 64 ]
+    if [ $code -ne 0 -a $code -ne 1 ]
     then
         printf '[ERROR] Test case failed memory leak test.\n' 1>&2
         printf 'Hint: %s\n' "$hint" 1>&2

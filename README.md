@@ -15,12 +15,6 @@ For the sake of simplicity the snrub GIT repo is used as the input for these
 integration tests. To test a version of code simply point a local clone of
 the repo to the commit you'd like to test.
 
-*Caution:* Uncommitted changes will be reverted after integration tests are
-run.
-
-*Caution:* Killing the integration test process early may result in
-unreverted test changes.
-
 Run integration test suite against a branch of code:
 ```shell
 sh run.sh ~/Repos/snrub
