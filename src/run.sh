@@ -47,6 +47,7 @@ trap fail_early INT QUIT ABRT
 
 # Run the test suite now that integration tests are merged in
 cd "$repo_path"
+make clean > /dev/null 2>&1
 cflags='-ansi -pedantic -Wall -g'
 make CFLAGS="$cflags" > /dev/null 2>&1
 make check 2>&1
