@@ -1,34 +1,61 @@
 pass()
 {
-    run_test "$1" "$2" 0
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+    then
+        run_test "$1" "$2" 0
+        progress
+    fi
 
-    run_batch_test "$1"
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'batch' ]
+    then
+        run_batch_test "$1"
+        progress
+    fi
 
-    run_file_test "$1" "$2" 0
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'file' ]
+    then
+        run_file_test "$1" "$2" 0
+        progress
+    fi
 
-    run_interactive_test "$1" "$2" 0
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
+    then
+        run_interactive_test "$1" "$2" 0
+        progress
+    fi
 
-    run_memory_test "$1"
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'memory' ]
+    then
+        run_memory_test "$1"
+        progress
+    fi
 }
 
 fail()
 {
-    run_test "$1" "$2" 1
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+    then
+        run_test "$1" "$2" 1
+        progress
+    fi
 
-    run_file_test "$1" "$2" 1
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'file' ]
+    then
+        run_file_test "$1" "$2" 1
+        progress
+    fi
 
-    run_interactive_test "$1" "$2" 1
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
+    then
+        run_interactive_test "$1" "$2" 1
+        progress
+    fi
 
-    run_memory_test "$1"
-    progress
+    if [ "$TEST" = '' -o "$TEST" = 'memory' ]
+    then
+        run_memory_test "$1"
+        progress
+    fi
 }
 
 conclude()
