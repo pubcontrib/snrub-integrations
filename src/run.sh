@@ -1,6 +1,7 @@
 #!/bin/sh
 integration_path=`dirname $0`
 repo_path=$1
+test_filter="${2:-}"
 
 if [ ! -d "$integration_path" ]
 then
@@ -29,7 +30,7 @@ do
 done
 
 # Append options to the test project
-printf "TEST='%s'" '' >> "$destination_file"
+printf "TEST='%s'" "$test_filter" >> "$destination_file"
 
 # Trap early program exits to assure cleanup happens
 clean()
