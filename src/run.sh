@@ -28,6 +28,9 @@ do
     cat "$injection" >> "$destination_file"
 done
 
+# Append options to the test project
+printf "TEST='%s'" '' >> "$destination_file"
+
 # Trap early program exits to assure cleanup happens
 clean()
 {
