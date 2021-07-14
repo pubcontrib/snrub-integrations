@@ -1,7 +1,26 @@
 #!/bin/sh
+program=`basename $0`
 integration_path=`dirname $0`
+
+while getopts ':t:' option; do
+    case "$option" in
+        t)
+            test_filter="$OPTARG"
+            ;;
+        :)
+            printf "$program: missing value from option $OPTARG\n" 1>&2
+            exit 1
+            ;;
+        ?)
+            printf "$program: illegal option $OPTARG\n" 1>&2
+            exit 1
+            ;;
+    esac
+done
+
+positional_start=$((OPTIND - 1))
+shift $positional_start
 repo_path=$1
-test_filter="${2:-}"
 
 if [ ! -d "$integration_path" ]
 then
