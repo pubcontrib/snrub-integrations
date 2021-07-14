@@ -7,6 +7,9 @@ while getopts ':t:' option; do
         t)
             test_filter="$OPTARG"
             ;;
+        s)
+            suite_filter="$OPTARG"
+            ;;
         :)
             printf "$program: missing value from option $OPTARG\n" 1>&2
             exit 1
@@ -49,7 +52,8 @@ do
 done
 
 # Append options to the test project
-printf "TEST='%s'" "$test_filter" >> "$destination_file"
+printf "TEST='%s'\n" "$test_filter" >> "$destination_file"
+printf "SUITE='%s'\n" "$suite_filter" >> "$destination_file"
 
 # Trap early program exits to assure cleanup happens
 clean()

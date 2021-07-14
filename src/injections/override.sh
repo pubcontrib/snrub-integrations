@@ -1,60 +1,66 @@
 pass()
 {
-    if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+    if [ "$SUITE" = '' -o "$SUITE" = "$hint" ]
     then
-        run_test "$1" "$2" 0
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+        then
+            run_test "$1" "$2" 0
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'batch' ]
-    then
-        run_batch_test "$1"
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'batch' ]
+        then
+            run_batch_test "$1"
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'file' ]
-    then
-        run_file_test "$1" "$2" 0
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'file' ]
+        then
+            run_file_test "$1" "$2" 0
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
-    then
-        run_interactive_test "$1" "$2" 0
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
+        then
+            run_interactive_test "$1" "$2" 0
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'memory' ]
-    then
-        run_memory_test "$1"
-        progress
+        if [ "$TEST" = '' -o "$TEST" = 'memory' ]
+        then
+            run_memory_test "$1"
+            progress
+        fi
     fi
 }
 
 fail()
 {
-    if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+    if [ "$SUITE" = '' -o "$SUITE" = "$hint" ]
     then
-        run_test "$1" "$2" 1
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'unit' ]
+        then
+            run_test "$1" "$2" 1
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'file' ]
-    then
-        run_file_test "$1" "$2" 1
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'file' ]
+        then
+            run_file_test "$1" "$2" 1
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
-    then
-        run_interactive_test "$1" "$2" 1
-        progress
-    fi
+        if [ "$TEST" = '' -o "$TEST" = 'interactive' ]
+        then
+            run_interactive_test "$1" "$2" 1
+            progress
+        fi
 
-    if [ "$TEST" = '' -o "$TEST" = 'memory' ]
-    then
-        run_memory_test "$1"
-        progress
+        if [ "$TEST" = '' -o "$TEST" = 'memory' ]
+        then
+            run_memory_test "$1"
+            progress
+        fi
     fi
 }
 
