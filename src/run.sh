@@ -2,7 +2,7 @@
 program=`basename $0`
 integration_path=`dirname $0`
 
-while getopts ':t:' option; do
+while getopts ':t:s:' option; do
     case "$option" in
         t)
             test_filter="$OPTARG"
