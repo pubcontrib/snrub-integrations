@@ -27,13 +27,13 @@ repo_path=$1
 
 if [ ! -d "$integration_path" ]
 then
-    printf '[ERROR] No integration path found.\n'
+    printf '[ERROR] No integration path found.\n' 1>&2
     exit 1
 fi
 
 if [ ! -d "$repo_path" ]
 then
-    printf '[ERROR] No repo path found.\n'
+    printf '[ERROR] No repo path found.\n' 1>&2
     exit 1
 fi
 
