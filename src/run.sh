@@ -12,12 +12,12 @@ while getopts ':t:s:' option; do
             ;;
         :)
             printf '[ERROR] Missing value from option.\n' 1>&2
-            printf 'Argument: %s' "$OPTARG" 1>&2
+            printf 'Argument: %s\n' "$OPTARG" 1>&2
             exit 1
             ;;
         ?)
             printf "[ERROR] Illegal option.\n" 1>&2
-            printf 'Argument: %s' "$OPTARG" 1>&2
+            printf 'Argument: %s\n' "$OPTARG" 1>&2
             exit 1
             ;;
     esac
