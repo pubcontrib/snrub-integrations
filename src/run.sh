@@ -77,7 +77,7 @@ cd "$repo_path"
 make clean > /dev/null 2>&1
 cflags='-ansi -pedantic -Wall -g'
 make CFLAGS="$cflags" > /dev/null 2>&1
-make check 2>&1
+make check
 status=$?
 
 # Run cleanup by hand if the tests didn't fail early
