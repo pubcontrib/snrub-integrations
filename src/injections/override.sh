@@ -69,21 +69,14 @@ conclude()
     end_seconds=`current_seconds`
     total_seconds=$((end_seconds-start_seconds))
 
-    clear
+    printf '\033[2K\015' 1>&2
     printf '%d tests run. Took %d seconds.\n' $count $total_seconds
     count=0
 }
 
-clear()
-{
-    printf '\033[2K' # Clear entire line
-    printf '\015' # Carriage return
-}
-
 progress()
 {
-    clear
-    printf '...%s@%d' "$hint" $count
+    printf '\033[2K\015...%s@%d' "$hint" $count 1>&2
 }
 
 current_seconds()
