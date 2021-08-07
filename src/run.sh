@@ -11,11 +11,13 @@ while getopts ':t:s:' option; do
             suite_filter="$OPTARG"
             ;;
         :)
-            printf "$program: missing value from option $OPTARG\n" 1>&2
+            printf '[ERROR] Missing value from option.\n' 1>&2
+            printf 'Argument: %s' "$OPTARG" 1>&2
             exit 1
             ;;
         ?)
-            printf "$program: illegal option $OPTARG\n" 1>&2
+            printf "[ERROR] Illegal option.\n" 1>&2
+            printf 'Argument: %s' "$OPTARG" 1>&2
             exit 1
             ;;
     esac
