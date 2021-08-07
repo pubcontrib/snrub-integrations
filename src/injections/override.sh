@@ -76,7 +76,7 @@ conclude()
 
 progress()
 {
-    printf '\033[2K\015...%s@%d' "$hint" $count
+    printf '\033[2K\015...%s@%d' "$hint" $count 1>&2
 }
 
 current_seconds()
