@@ -2,13 +2,17 @@
 program=`basename $0`
 integration_path=`dirname $0`
 
-while getopts ':t:s:' option; do
+while getopts ':t:s:h' option; do
     case "$option" in
         t)
             test_filter="$OPTARG"
             ;;
         s)
             suite_filter="$OPTARG"
+            ;;
+        h)
+            printf 'Usage: %s [-t test] [-s suite] repo\n' "$program"
+            exit 0
             ;;
         :)
             printf '[ERROR] Missing value from option.\n' 1>&2
