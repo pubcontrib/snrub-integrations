@@ -32,6 +32,8 @@ pass()
             progress
         fi
     fi
+
+    case=$((case + 1))
 }
 
 fail()
@@ -62,6 +64,8 @@ fail()
             progress
         fi
     fi
+
+    case=$((case + 1))
 }
 
 conclude()
@@ -76,7 +80,8 @@ conclude()
 
 progress()
 {
-    printf '\033[2K\015...%s@%d' "$hint" $count 1>&2
+    percent=`printf "scale=1; $case*100/$CASES\n" | bc`
+    printf '\033[2K\015%s%%' "$percent" 1>&2
 }
 
 current_seconds()
@@ -87,4 +92,9 @@ current_seconds()
 if [ -z $start_seconds ]
 then
     start_seconds=`current_seconds`
+fi
+
+if [ -z $case ]
+then
+    case=0
 fi
