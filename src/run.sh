@@ -45,10 +45,28 @@ fi
 
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
+count_path=`readlink -f count.sh`
 
 # Append injected scripts to the test project
-cd "$integration_path/injections"
 destination_file="$repo_path/test/assert.sh"
+
+clean()
+{
+    # Reset the state of the source repo
+    make clean > /dev/null 2>&1
+    git checkout HEAD -- "$destination_file" > /dev/null 2>&1
+}
+
+cat "$count_path" >> "$destination_file"
+
+cd "$repo_path"
+make clean > /dev/null 2>&1
+make > /dev/null 2>&1
+cases=`make -s check`
+
+clean
+
+cd "$integration_path/injections"
 injections=`ls`
 
 for injection in $injections
@@ -60,15 +78,9 @@ done
 # Append options to the test project
 printf "TEST='%s'\n" "$test_filter" >> "$destination_file"
 printf "SUITE='%s'\n" "$suite_filter" >> "$destination_file"
+printf "CASES='%s'\n" "$cases" >> "$destination_file"
 
 # Trap early program exits to assure cleanup happens
-clean()
-{
-    # Reset the state of the source repo
-    make clean > /dev/null 2>&1
-    git checkout HEAD -- "$destination_file" > /dev/null 2>&1
-}
-
 fail_early()
 {
     # Assure clean is run before exiting
