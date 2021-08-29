@@ -74,25 +74,31 @@ conclude()
 progress()
 {
     percent=`printf "scale=0; $case*100/$CASES\n" | bc`
-    capacity=16
-    filled=`printf "scale=0; $case*$capacity/$CASES\n" | bc`
-    remaining=$((capacity - filled))
 
-    printf '\033[2K\015[' 1>&2
+    if [ "$percent" != "$last_percent" ]
+    then
+        capacity=16
+        filled=`printf "scale=0; $case*$capacity/$CASES\n" | bc`
+        remaining=$((capacity - filled))
 
-    while [ "$filled" -gt 0 ]
-    do
-        printf '=' 1>&2
-        filled=$((filled - 1))
-    done
+        printf '\033[2K\015[' 1>&2
 
-    while [ "$remaining" -gt 0 ]
-    do
-        printf ' ' 1>&2
-        remaining=$((remaining - 1))
-    done
+        while [ "$filled" -gt 0 ]
+        do
+            printf '=' 1>&2
+            filled=$((filled - 1))
+        done
 
-    printf ']  %s%%' "$percent" 1>&2
+        while [ "$remaining" -gt 0 ]
+        do
+            printf ' ' 1>&2
+            remaining=$((remaining - 1))
+        done
+
+        printf ']  %s%%' "$percent" 1>&2
+
+        last_percent=$percent
+    fi
 }
 
 current_seconds()
