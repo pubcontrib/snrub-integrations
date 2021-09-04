@@ -11,6 +11,7 @@ run_file_test()
 
     if [ $actual_code != $expected_code ]
     then
+        printf '\033[2K\015' 1>&2
         printf '[ERROR] Test case returned an unexpected exit code.\n' 1>&2
         printf 'Hint: %s\n' "$hint" 1>&2
         printf 'Source: %s\n' "$text" 1>&2
@@ -21,6 +22,7 @@ run_file_test()
 
     if [ "$actual_output" != "$expected_output" ]
     then
+        printf '\033[2K\015' 1>&2
         printf '[ERROR] Test case returned an unexpected stdout.\n' 1>&2
         printf 'Hint: %s\n' "$hint" 1>&2
         printf 'Source: %s\n' "$text" 1>&2

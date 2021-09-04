@@ -7,6 +7,7 @@ run_memory_test()
 
     if [ $code -ne 0 -a $code -ne 1 ]
     then
+        printf '\033[2K\015' 1>&2
         printf '[ERROR] Test case failed memory leak test.\n' 1>&2
         printf 'Hint: %s\n' "$hint" 1>&2
         printf 'Source: %s\n' "$text" 1>&2
