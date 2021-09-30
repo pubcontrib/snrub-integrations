@@ -43,13 +43,23 @@ then
     exit 1
 fi
 
+# Convert paths to absolute paths
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
 count_path=`readlink -f count.sh`
 
-# Append injected scripts to the test project
+# Safe-guard against data loss
+cd "$repo_path"
 destination_file="$repo_path/test/assert.sh"
+git diff --exit-code --quiet "$destination_file"
 
+if [ $? -eq 1 ]
+then
+    printf '[ERROR] Pending changes found for assert.sh.\n' 1>&2
+    exit 1
+fi
+
+# Append injected scripts to the test project
 clean()
 {
     # Reset the state of the source repo
@@ -58,7 +68,6 @@ clean()
 }
 
 cat "$count_path" >> "$destination_file"
-
 cd "$repo_path"
 make clean > /dev/null 2>&1
 make > /dev/null 2>&1
