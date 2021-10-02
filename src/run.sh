@@ -47,6 +47,7 @@ fi
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
 count_path=`readlink -f count.sh`
+test_path=`readline -f test.sh`
 
 # Safe-guard against data loss
 cd "$repo_path"
@@ -72,17 +73,7 @@ cd "$repo_path"
 make clean > /dev/null 2>&1
 make > /dev/null 2>&1
 cases=`make -s check`
-
 clean
-
-cd "$integration_path/injections"
-injections=`ls`
-
-for injection in $injections
-do
-    name=`basename $injection`
-    cat "$injection" >> "$destination_file"
-done
 
 # Append options to the test project
 printf "TEST='%s'\n" "$test_filter" >> "$destination_file"
@@ -100,6 +91,7 @@ fail_early()
 trap fail_early INT QUIT ABRT
 
 # Run the test suite now that integration tests are merged in
+cat "$test_path" >> "$destination_file"
 cd "$repo_path"
 make clean > /dev/null 2>&1
 cflags='-ansi -pedantic -Wall -g'
