@@ -1,3 +1,10 @@
+hint='unset'
+
+hint()
+{
+    hint=$1
+}
+
 pass()
 {
     if [ "$SUITE" = '' -o "$SUITE" = "$hint" ]
