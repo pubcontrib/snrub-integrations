@@ -47,7 +47,7 @@ fi
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
 count_path=`readlink -f count.sh`
-test_path=`readline -f test.sh`
+test_path=`readlink -f test.sh`
 
 # Safe-guard against data loss
 cd "$repo_path"
