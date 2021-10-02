@@ -1,3 +1,10 @@
+hint='unset'
+
+hint()
+{
+    hint=$1
+}
+
 pass()
 {
     if [ "$SUITE" = '' -o "$SUITE" = "$hint" ]
@@ -59,6 +66,56 @@ fail()
 
     case=$((case + 1))
     progress
+}
+
+introduce()
+{
+    start_seconds=`current_seconds`
+    case=0
+    count=0
+}
+
+conclude()
+{
+    end_seconds=`current_seconds`
+    total_seconds=$((end_seconds-start_seconds))
+
+    printf '\033[2K\015' 1>&2
+    printf '%d tests run. Took %d seconds.\n' $count $total_seconds
+}
+
+run_test()
+{
+    text=$1
+    expected_output=$2
+    expected_code=$3
+
+    actual_output=`$PROGRAM -t "$text"`
+    actual_code=$?
+
+    if [ $actual_code != $expected_code ]
+    then
+        printf '\033[2K\015' 1>&2
+        printf '[ERROR] Test case returned an unexpected exit code.\n' 1>&2
+        printf 'Hint: %s\n' "$hint" 1>&2
+        printf 'Source: %s\n' "$text" 1>&2
+        printf 'Expected: %d\n' $expected_code 1>&2
+        printf 'Actual: %d\n' $actual_code 1>&2
+        exit 1
+    fi
+
+    if [ "$actual_output" != "$expected_output" ]
+    then
+        printf '\033[2K\015' 1>&2
+        printf '[ERROR] Test case returned an unexpected stdout.\n' 1>&2
+        printf 'Hint: %s\n' "$hint" 1>&2
+        printf 'Source: %s\n' "$text" 1>&2
+        printf 'Expected: %s\n' "$expected_output" 1>&2
+        printf 'Actual: %s\n' "$actual_output" 1>&2
+        exit 1
+    fi
+
+    count=$((count + 1))
 }
 
 run_batch_test()
@@ -178,40 +235,6 @@ run_memory_test()
     count=$((count + 1))
 }
 
-run_test()
-{
-    text=$1
-    expected_output=$2
-    expected_code=$3
-
-    actual_output=`$PROGRAM -t "$text"`
-    actual_code=$?
-
-    if [ $actual_code != $expected_code ]
-    then
-        printf '\033[2K\015' 1>&2
-        printf '[ERROR] Test case returned an unexpected exit code.\n' 1>&2
-        printf 'Hint: %s\n' "$hint" 1>&2
-        printf 'Source: %s\n' "$text" 1>&2
-        printf 'Expected: %d\n' $expected_code 1>&2
-        printf 'Actual: %d\n' $actual_code 1>&2
-        exit 1
-    fi
-
-    if [ "$actual_output" != "$expected_output" ]
-    then
-        printf '\033[2K\015' 1>&2
-        printf '[ERROR] Test case returned an unexpected stdout.\n' 1>&2
-        printf 'Hint: %s\n' "$hint" 1>&2
-        printf 'Source: %s\n' "$text" 1>&2
-        printf 'Expected: %s\n' "$expected_output" 1>&2
-        printf 'Actual: %s\n' "$actual_output" 1>&2
-        exit 1
-    fi
-
-    count=$((count + 1))
-}
-
 progress()
 {
     percent=`printf "scale=0; $case*100/$CASES\n" | bc`
@@ -242,27 +265,7 @@ progress()
     fi
 }
 
-conclude()
-{
-    end_seconds=`current_seconds`
-    total_seconds=$((end_seconds-start_seconds))
-
-    printf '\033[2K\015' 1>&2
-    printf '%d tests run. Took %d seconds.\n' $count $total_seconds
-    count=0
-}
-
 current_seconds()
 {
     date +%s
 }
-
-if [ -z $start_seconds ]
-then
-    start_seconds=`current_seconds`
-fi
-
-if [ -z $case ]
-then
-    case=0
-fi
