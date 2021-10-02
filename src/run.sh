@@ -46,8 +46,8 @@ fi
 # Convert paths to absolute paths
 integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
-count_path=`readlink -f count.sh`
-test_path=`readlink -f test.sh`
+count_file=`readlink -f count.sh`
+test_file=`readlink -f test.sh`
 
 # Safe-guard against data loss
 cd "$repo_path"
@@ -68,7 +68,7 @@ clean()
     git checkout HEAD -- "$destination_file" > /dev/null 2>&1
 }
 
-cat "$count_path" >> "$destination_file"
+cat "$count_file" >> "$destination_file"
 cd "$repo_path"
 make clean > /dev/null 2>&1
 make > /dev/null 2>&1
@@ -91,7 +91,7 @@ fail_early()
 trap fail_early INT QUIT ABRT
 
 # Run the test suite now that integration tests are merged in
-cat "$test_path" >> "$destination_file"
+cat "$test_file" >> "$destination_file"
 cd "$repo_path"
 make clean > /dev/null 2>&1
 cflags='-ansi -pedantic -Wall -g'
