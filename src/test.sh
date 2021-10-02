@@ -61,6 +61,12 @@ fail()
     progress
 }
 
+introduce()
+{
+    start_seconds=`current_seconds`
+    case=0
+}
+
 conclude()
 {
     end_seconds=`current_seconds`
@@ -256,13 +262,3 @@ current_seconds()
 {
     date +%s
 }
-
-if [ -z $start_seconds ]
-then
-    start_seconds=`current_seconds`
-fi
-
-if [ -z $case ]
-then
-    case=0
-fi
