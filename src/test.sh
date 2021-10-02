@@ -72,6 +72,7 @@ introduce()
 {
     start_seconds=`current_seconds`
     case=0
+    count=0
 }
 
 conclude()
@@ -81,7 +82,6 @@ conclude()
 
     printf '\033[2K\015' 1>&2
     printf '%d tests run. Took %d seconds.\n' $count $total_seconds
-    count=0
 }
 
 run_test()
