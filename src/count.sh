@@ -10,5 +10,5 @@ conclude()
 
 run_test()
 {
-    cases=$((cases + 1))
+    cases=`expr $cases + 1`
 }

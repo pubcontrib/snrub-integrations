@@ -27,7 +27,7 @@ while getopts ':t:s:h' option; do
     esac
 done
 
-positional_start=$((OPTIND - 1))
+positional_start=`expr $OPTIND - 1`
 shift $positional_start
 repo_path=$1
 
