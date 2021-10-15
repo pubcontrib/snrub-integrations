@@ -35,7 +35,7 @@ pass()
         fi
     fi
 
-    case=$((case + 1))
+    case=`expr $case + 1`
     progress
 }
 
@@ -64,7 +64,7 @@ fail()
         fi
     fi
 
-    case=$((case + 1))
+    case=`expr $case + 1`
     progress
 }
 
@@ -78,7 +78,7 @@ introduce()
 conclude()
 {
     end_seconds=`current_seconds`
-    total_seconds=$((end_seconds-start_seconds))
+    total_seconds=`expr $end_seconds - $start_seconds`
 
     printf '\033[2K\015' 1>&2
     printf '%d tests run. Took %d seconds.\n' $count $total_seconds
@@ -115,7 +115,7 @@ run_test()
         exit 1
     fi
 
-    count=$((count + 1))
+    count=`expr $count + 1`
 }
 
 run_batch_test()
@@ -164,7 +164,7 @@ run_file_test()
 
     rm "$file"
 
-    count=$((count + 1))
+    count=`expr $count + 1`
 }
 
 run_interactive_test()
@@ -212,7 +212,7 @@ run_interactive_test()
         exit 1
     fi
 
-    count=$((count + 1))
+    count=`expr $count + 1`
 }
 
 run_memory_test()
@@ -232,7 +232,7 @@ run_memory_test()
         exit 1
     fi
 
-    count=$((count + 1))
+    count=`expr $count + 1`
 }
 
 progress()
@@ -243,20 +243,20 @@ progress()
     then
         capacity=16
         filled=`printf "scale=0; $case*$capacity/$CASES\n" | bc`
-        remaining=$((capacity - filled))
+        remaining=`expr $capacity - $filled`
 
         printf '\033[2K\015[' 1>&2
 
         while [ "$filled" -gt 0 ]
         do
             printf '=' 1>&2
-            filled=$((filled - 1))
+            filled=`expr $filled - 1`
         done
 
         while [ "$remaining" -gt 0 ]
         do
             printf ' ' 1>&2
-            remaining=$((remaining - 1))
+            remaining=`expr $remaining - 1`
         done
 
         printf ']  %s%%' "$percent" 1>&2
