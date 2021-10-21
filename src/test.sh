@@ -173,21 +173,21 @@ run_interactive_test()
     expected_output=$2
     expected_code=$3
 
-    newline_count=`printf "%s" "$text" | wc -l`
+    newline_count=`printf '%s' "$text" | wc -l`
 
     if [ $newline_count -gt 0 ]
     then
         return 0
     fi
 
-    actual_output=`printf "%s\n" "$text" | $PROGRAM -i`
+    actual_output=`printf '%s\n' "$text" | $PROGRAM -i`
     actual_code=$?
 
     if [ $expected_code -eq 0 ]
     then
-        expected_output=`printf "> %s\n> \n" "$expected_output"`
+        expected_output=`printf '> %s\n> \n' "$expected_output"`
     else
-        expected_output=`printf "> %s\n" "$expected_output"`
+        expected_output=`printf '> %s\n' "$expected_output"`
     fi
 
     if [ $actual_code != $expected_code ]
@@ -237,12 +237,12 @@ run_memory_test()
 
 progress()
 {
-    percent=`printf "scale=0; $case*100/$CASES\n" | bc`
+    percent=`printf 'scale=0; %d*100/%d\n' "$case" "$CASES" | bc`
 
     if [ "$percent" != "$last_percent" ]
     then
         capacity=16
-        filled=`printf "scale=0; $case*$capacity/$CASES\n" | bc`
+        filled=`printf 'scale=0; %d*%d/%d\n' "$case" "$capacity" "$CASES" | bc`
         remaining=`expr $capacity - $filled`
 
         printf '\033[2K\015[' 1>&2
