@@ -20,7 +20,7 @@ while getopts ':t:s:h' option; do
             exit 1
             ;;
         ?)
-            printf "[ERROR] Illegal option.\n" 1>&2
+            printf '[ERROR] Illegal option.\n' 1>&2
             printf 'Argument: %s\n' "$OPTARG" 1>&2
             exit 1
             ;;
