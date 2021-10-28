@@ -15,9 +15,19 @@ For the sake of simplicity the snrub GIT repo is used as the input for these
 integration tests. To test a version of code simply point a local clone of
 the repo to the commit you'd like to test.
 
-Run integration test suite against a branch of code:
+Run all integration tests:
 ```shell
 sh run.sh ~/Repos/snrub
+```
+
+Run only memory tests:
+```shell
+sh run.sh -t memory ~/Repos/snrub
+```
+
+Run only add tests:
+```shell
+sh run.sh -s operator/add ~/Repos/snrub
 ```
 
 ## License
