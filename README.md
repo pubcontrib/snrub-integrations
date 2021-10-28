@@ -20,10 +20,16 @@ Run all integration tests:
 sh run.sh ~/Repos/snrub
 ```
 
+With the `-t` option you can limit the test cases run by test. The options
+supported today are `unit`, `batch`, `file`, `interactive`, and `memory`.
+
 Run only memory tests:
 ```shell
 sh run.sh -t memory ~/Repos/snrub
 ```
+
+With the `-s` option you can limit the test cases run by suite. See the suites
+listed in the `test/suite` repo of your local snrub GIT repo for options.
 
 Run only add tests:
 ```shell
