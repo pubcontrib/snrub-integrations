@@ -36,5 +36,13 @@ Run only add tests:
 sh run.sh -s operator/add ~/Repos/snrub
 ```
 
+With the `-h` option you can view the available options and how to use them from
+the shell.
+
+Display usage message:
+```shell
+sh run.sh -h
+```
+
 ## License
 This project uses the unlicense license. See `LICENSE` file for more details.
