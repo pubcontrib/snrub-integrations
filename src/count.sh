@@ -5,6 +5,8 @@ introduce()
 
 conclude()
 {
+    run_integration_tests
+
     printf '%d' $cases
 }
 

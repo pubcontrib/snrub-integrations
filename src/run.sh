@@ -48,6 +48,7 @@ integration_path=`readlink -f "$integration_path"`
 repo_path=`readlink -f "$repo_path"`
 count_file=`readlink -f count.sh`
 test_file=`readlink -f test.sh`
+builtin_file=`readlink -f builtin.sh`
 
 # Safe-guard against data loss
 cd "$repo_path"
@@ -68,6 +69,7 @@ clean()
     git checkout HEAD -- "$destination_file" > /dev/null 2>&1
 }
 
+cat "$builtin_file" >> "$destination_file"
 cat "$count_file" >> "$destination_file"
 cd "$repo_path"
 make clean > /dev/null 2>&1
@@ -94,6 +96,7 @@ fail_early()
 trap fail_early INT QUIT ABRT
 
 # Append overrides to the utility script to run this project's test functions
+cat "$builtin_file" >> "$destination_file"
 cat "$test_file" >> "$destination_file"
 cd "$repo_path"
 make clean > /dev/null 2>&1
