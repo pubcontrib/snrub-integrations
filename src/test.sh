@@ -137,6 +137,7 @@ run_file_test()
     expected_output=$2
     expected_code=$3
 
+    umask 077
     file=`mktemp`
     printf '%s\n' "$text" > "$file"
     actual_output=`$PROGRAM -f "$file"`
