@@ -1,5 +1,5 @@
 # snrub-integrations
-> Unoffical integration test coverage of snrub reference implementation.
+> Unofficial integration test coverage of snrub reference implementation.
 
 This project includes scripts for running a collection of integration tests for
 the [snrub](https://bitbucket.org/wareification/snrub) reference implementation.
