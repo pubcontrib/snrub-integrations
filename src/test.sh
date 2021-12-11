@@ -137,10 +137,22 @@ run_file_test()
     expected_output=$2
     expected_code=$3
 
+    umask 077
     file=`mktemp`
-    printf '%s\n' "$text" > "$file"
+
+    if [ -s "$file" ]
+    then
+        printf '\033[2K\015' 1>&2
+        printf '[ERROR] Temporary file is non-empty.\n' 1>&2
+        printf 'Hint: %s\n' "$hint" 1>&2
+        printf 'Source: %s\n' "$text" 1>&2
+        exit 1
+    fi
+
+    printf '%s' "$text" > "$file"
     actual_output=`$PROGRAM -f "$file"`
     actual_code=$?
+    rm "$file"
 
     if [ $actual_code != $expected_code ]
     then
@@ -163,8 +175,6 @@ run_file_test()
         printf 'Actual: %s\n' "$actual_output" 1>&2
         exit 1
     fi
-
-    rm "$file"
 
     count=`expr $count + 1`
 }
