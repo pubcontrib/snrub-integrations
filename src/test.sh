@@ -149,7 +149,7 @@ run_file_test()
         exit 1
     fi
 
-    printf '%s\n' "$text" > "$file"
+    printf '%s' "$text" > "$file"
     actual_output=`$PROGRAM -f "$file"`
     actual_code=$?
     rm "$file"
