@@ -142,6 +142,7 @@ run_file_test()
     printf '%s\n' "$text" > "$file"
     actual_output=`$PROGRAM -f "$file"`
     actual_code=$?
+    rm "$file"
 
     if [ $actual_code != $expected_code ]
     then
@@ -164,8 +165,6 @@ run_file_test()
         printf 'Actual: %s\n' "$actual_output" 1>&2
         exit 1
     fi
-
-    rm "$file"
 
     count=`expr $count + 1`
 }
