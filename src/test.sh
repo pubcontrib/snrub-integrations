@@ -16,7 +16,7 @@ pass()
 
         if [ "$TEST" = '' -o "$TEST" = 'batch' ]
         then
-            run_batch_test "$1"
+            append_batch_test "$1"
         fi
 
         if [ "$TEST" = '' -o "$TEST" = 'file' ]
@@ -79,6 +79,11 @@ conclude()
 {
     run_integration_tests
 
+    if [ "$TEST" = '' -o "$TEST" = 'batch' ]
+    then
+        run_batch_test
+    fi
+
     end_seconds=`current_seconds`
     total_seconds=`expr $end_seconds - $start_seconds`
 
@@ -122,12 +127,8 @@ run_test()
 
 run_batch_test()
 {
-    text=$1
-
-    buffer="$buffer $text"
     match='"done"'
     buffer="$buffer $match"
-
     run_test "$buffer" "$match" 0
 }
 
@@ -245,6 +246,11 @@ run_memory_test()
     fi
 
     count=`expr $count + 1`
+}
+
+append_batch_test()
+{
+    buffer="$buffer $1"
 }
 
 progress()
